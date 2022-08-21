@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app: notes
       layer: frontend
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
@@ -58,13 +58,8 @@ metadata:
     kubernetes.io/ingress.class: "gce"
     kubernetes.io/ingress.global-static-ip-name: notesapp-external-ip
 spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-svc
-                port:
-                  number: 80
+  defaultBackend:
+    service:
+      name: frontend-svc
+      port:
+        number: 80
