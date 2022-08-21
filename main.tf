@@ -1,3 +1,4 @@
+# Networking resources
 resource "google_compute_network" "default" {
   name                    = "vpc-app"
   auto_create_subnetworks = false
@@ -23,6 +24,8 @@ resource "google_compute_subnetwork" "default_2" {
   stack_type               = "IPV4_ONLY"
   private_ip_google_access = true
 }
+
+# GKE Cluster
 
 resource "google_service_account" "default" {
   account_id   = "gke-service-account-app"
