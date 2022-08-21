@@ -66,3 +66,10 @@ resource "google_container_cluster" "primary" {
     services_ipv4_cidr_block = "10.191.128.0/21"
   }
 }
+
+resource "google_artifact_registry_repository" "my-repo" {
+  location      = "us-central1"
+  repository_id = "notes-app-repo"
+  description   = "notes app docker repository"
+  format        = "DOCKER"
+}
