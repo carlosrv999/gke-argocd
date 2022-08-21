@@ -75,12 +75,12 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: notesapp-external-ip
 spec:
   rules:
-    http:
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: frontend-svc
-              port:
-                number: 80
+    - http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend-svc
+                port:
+                  number: 80
