@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: notes
+      layer: database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: notes
+        layer: database
+    spec:
+      containers:
+        - name: database
+          image: us-central1-docker.pkg.dev/agile-terra-359116/notes-app-repo/database-app:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: initial-password-pg
+                  key: POSTGRES_PASSWORD
+      imagePullSecrets:
+        - name: default-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  type: ClusterIP
+  selector:
+    app: notes
+    layer: database
+  ports:
+    - port: 5432
+      targetPort: 5432

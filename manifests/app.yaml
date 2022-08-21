@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: notes
+      layer: frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: notes
+        layer: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: us-central1-docker.pkg.dev/agile-terra-359116/notes-app-repo/notes-app:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: pg-connection-url
+                  key: DATABASE_URL
+      imagePullSecrets:
+        - name: default-secret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: NodePort
+  selector:
+    app: notes
+    layer: frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30010
