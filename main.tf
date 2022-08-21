@@ -73,3 +73,13 @@ resource "google_artifact_registry_repository" "my-repo" {
   description   = "notes app docker repository"
   format        = "DOCKER"
 }
+
+resource "google_artifact_registry_repository_iam_binding" "binding" {
+  project    = google_artifact_registry_repository.my-repo.project
+  location   = google_artifact_registry_repository.my-repo.location
+  repository = google_artifact_registry_repository.my-repo.name
+  role       = "roles/artifactregistry.reader"
+  members = [
+    "serviceAccount:${google_service_account.default.email}",
+  ]
+}
