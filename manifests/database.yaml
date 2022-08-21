@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: notes
@@ -14,8 +16,6 @@ spec:
         app: notes
         layer: database
     spec:
-      strategy:
-        type: RollingUpdate
       containers:
         - name: database
           image: us-central1-docker.pkg.dev/agile-terra-359116/notes-app-repo/database-app:latest
