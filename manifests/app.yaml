@@ -57,7 +57,7 @@ spec:
     - name: service-clusterip
       port: 80
       protocol: TCP
-      targetPort: 80
+      targetPort: 3000
   selector:
     app: notes
     layer: frontend
