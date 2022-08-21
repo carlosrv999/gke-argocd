@@ -103,3 +103,8 @@ resource "google_compute_firewall" "default" {
     protocol = "tcp"
   }
 }
+
+resource "google_compute_global_address" "default" {
+  name         = "notesapp-external-ip"
+  address_type = "EXTERNAL"
+}
