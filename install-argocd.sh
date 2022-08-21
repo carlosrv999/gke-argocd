@@ -34,11 +34,11 @@ context_current=$(kubectl config current-context)
 # Agregar contexto de Argo
 argocd cluster add $context_current -y
 
-# Crear namespace emojivote
-kubectl create namespace emojivote
+# Crear namespace notesapp
+kubectl create namespace notesapp
 
 # Crear aplicacion de Argo
-argocd app create emojivote --repo https://github.com/carlosrv999/terraform-gcp.git --path manifests-voteapp --dest-server https://kubernetes.default.svc --dest-namespace emojivote --directory-recurse
+argocd app create notesapp --repo https://github.com/carlosrv999/gke-argocd.git --path manifests --dest-server https://kubernetes.default.svc --dest-namespace notesapp
 
-# Sincronizar app emojivote
-argocd app sync emojivote
+# Sincronizar app notesapp
+argocd app sync notesapp

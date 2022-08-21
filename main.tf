@@ -67,7 +67,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
-resource "google_artifact_registry_repository" "my-repo" {
+resource "google_artifact_registry_repository" "default" {
   location      = "us-central1"
   repository_id = "notes-app-repo"
   description   = "notes app docker repository"
@@ -75,11 +75,31 @@ resource "google_artifact_registry_repository" "my-repo" {
 }
 
 resource "google_artifact_registry_repository_iam_binding" "binding" {
-  project    = google_artifact_registry_repository.my-repo.project
-  location   = google_artifact_registry_repository.my-repo.location
-  repository = google_artifact_registry_repository.my-repo.name
+  project    = google_artifact_registry_repository.default.project
+  location   = google_artifact_registry_repository.default.location
+  repository = google_artifact_registry_repository.default.name
   role       = "roles/artifactregistry.reader"
   members = [
     "serviceAccount:${google_service_account.default.email}",
   ]
+}
+
+resource "google_compute_firewall" "default" {
+  direction          = "INGRESS"
+  name               = "nodeport-allow-new"
+  network            = google_compute_network.default.id
+  priority           = 1000
+  source_ranges = [
+    "0.0.0.0/0",
+  ]
+  target_service_accounts = [
+    google_service_account.default.email,
+  ]
+
+  allow {
+    ports = [
+      "30000-32767",
+    ]
+    protocol = "tcp"
+  }
 }
