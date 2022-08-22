@@ -39,4 +39,4 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_load_balancer_public_ip"></a> [load\_balancer\_public\_ip](#output\_load\_balancer\_public\_ip) | n/a |
+| <a name="output_load_balancer_public_ip"></a> [load\_balancer\_public\_ip](#output\_load\_balancer\_public\_ip) | Global load balancer IP Address |
