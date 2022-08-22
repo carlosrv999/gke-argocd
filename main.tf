@@ -39,8 +39,7 @@ resource "google_container_cluster" "primary" {
     service_account  = "default"
     image_type       = "COS_CONTAINERD"
     local_ssd_count  = 0
-    machine_type     = "n2-standard-2"
-    min_cpu_platform = "Intel Ice Lake"
+    machine_type     = "e2-medium"
     preemptible      = false
 
     oauth_scopes = [

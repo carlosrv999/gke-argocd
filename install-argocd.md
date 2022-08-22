@@ -38,8 +38,9 @@ context_current=$(kubectl config current-context)
 argocd cluster add $context_current -y
 ```
 ### Crear namespace notesapp
-`kubectl create namespace notesapp`
-
+```
+kubectl create namespace notesapp
+```
 ### Crear aplicacion de Argo
 ```
 argocd app create notesapp --repo https://github.com/carlosrv999/gke-argocd.git --path manifests --dest-server https://kubernetes.default.svc --dest-namespace notesapp
