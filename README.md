@@ -1,4 +1,11 @@
+# GKE ArgoCD Demo
+
 ## Requirements
+
+1. gcloud cli
+2. terraform
+
+## Terraform Requirements
 
 | Name | Version |
 |------|---------|
