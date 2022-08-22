@@ -27,11 +27,6 @@ resource "google_compute_subnetwork" "default_2" {
 
 # GKE Cluster
 
-resource "google_service_account" "default" {
-  account_id   = "gke-service-account-app"
-  display_name = "Notes App Service Account"
-}
-
 resource "google_container_cluster" "primary" {
   name               = "my-gke-cluster"
   location           = "us-central1"
@@ -41,7 +36,7 @@ resource "google_container_cluster" "primary" {
   networking_mode    = "VPC_NATIVE"
 
   node_config {
-    service_account  = google_service_account.default.email
+    service_account  = "default"
     image_type       = "COS_CONTAINERD"
     local_ssd_count  = 0
     machine_type     = "n2-standard-2"
@@ -64,43 +59,6 @@ resource "google_container_cluster" "primary" {
   ip_allocation_policy {
     cluster_ipv4_cidr_block  = "10.191.0.0/17"
     services_ipv4_cidr_block = "10.191.128.0/21"
-  }
-}
-
-resource "google_artifact_registry_repository" "default" {
-  location      = "us-central1"
-  repository_id = "notes-app-repo"
-  description   = "notes app docker repository"
-  format        = "DOCKER"
-}
-
-resource "google_artifact_registry_repository_iam_binding" "binding" {
-  project    = google_artifact_registry_repository.default.project
-  location   = google_artifact_registry_repository.default.location
-  repository = google_artifact_registry_repository.default.name
-  role       = "roles/artifactregistry.reader"
-  members = [
-    "serviceAccount:${google_service_account.default.email}",
-  ]
-}
-
-resource "google_compute_firewall" "default" {
-  direction          = "INGRESS"
-  name               = "nodeport-allow-new"
-  network            = google_compute_network.default.id
-  priority           = 1000
-  source_ranges = [
-    "0.0.0.0/0",
-  ]
-  target_service_accounts = [
-    google_service_account.default.email,
-  ]
-
-  allow {
-    ports = [
-      "30000-32767",
-    ]
-    protocol = "tcp"
   }
 }
 

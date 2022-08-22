@@ -18,9 +18,11 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [google_compute_global_address.default](https://registry.terraform.io/providers/hashicorp/google/4.32.0/docs/resources/compute_global_address) | resource |
 | [google_compute_network.default](https://registry.terraform.io/providers/hashicorp/google/4.32.0/docs/resources/compute_network) | resource |
 | [google_compute_subnetwork.default_1](https://registry.terraform.io/providers/hashicorp/google/4.32.0/docs/resources/compute_subnetwork) | resource |
 | [google_compute_subnetwork.default_2](https://registry.terraform.io/providers/hashicorp/google/4.32.0/docs/resources/compute_subnetwork) | resource |
+| [google_container_cluster.primary](https://registry.terraform.io/providers/hashicorp/google/4.32.0/docs/resources/container_cluster) | resource |
 
 ## Inputs
 
