@@ -1,5 +1,7 @@
 # GKE ArgoCD Demo
 
+- Seguir el tutorial en el siguiente [enlace](https://medium.com/@carlos.rv125/gitops-con-argocd-en-google-kubernetes-engine-demo-2bc9e0b3a84c).
+
 ## Requirements
 
 1. gcloud cli
